@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 def run_time_travel_demo():
     spark = spark_session.create_spark_session()
-    table_name = f"{config.CATALOG_NAME}.delivery_logs"
+    table_name = f"{config.CATALOG_NAME}.db.delivery_logs"
     
     print(f"\n{'='*80}")
     print(f"ICEBERG TIME TRAVEL DEMO: {table_name}")

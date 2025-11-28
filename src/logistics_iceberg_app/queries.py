@@ -4,7 +4,7 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-def run_sample_queries(spark: SparkSession, table_name: str = "logistics.delivery_logs") -> None:
+def run_sample_queries(spark: SparkSession, table_name: str = "logistics.db.delivery_logs") -> None:
     """
     Runs sample analytics and metadata queries on the Iceberg table.
     """

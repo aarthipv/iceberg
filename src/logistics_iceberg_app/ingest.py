@@ -30,6 +30,14 @@ def ingest_to_iceberg_table(
     # 3) Write into Iceberg using Spark
     # Using writeTo(...).createOrReplace() as it handles both creation and replacement nicely.
     try:
+        # Ensure namespace exists (for Hive catalog)
+        # table_name is expected to be "catalog.namespace.table"
+        parts = table_name.split('.')
+        if len(parts) == 3:
+            catalog = parts[0]
+            namespace = parts[1]
+            spark.sql(f"CREATE DATABASE IF NOT EXISTS {catalog}.{namespace}")
+        
         spark_df.writeTo(table_name) \
             .using("iceberg") \
             .createOrReplace()

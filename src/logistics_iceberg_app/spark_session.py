@@ -30,7 +30,8 @@ def create_spark_session(warehouse_path: str | None = None) -> SparkSession:
         .config("spark.jars.packages", iceberg_pkg) \
         .config("spark.sql.extensions", "org.apache.iceberg.spark.extensions.IcebergSparkSessionExtensions") \
         .config(f"spark.sql.catalog.{catalog_name}", "org.apache.iceberg.spark.SparkCatalog") \
-        .config(f"spark.sql.catalog.{catalog_name}.type", "hadoop") \
+        .config(f"spark.sql.catalog.{catalog_name}.type", "hive") \
+        .config(f"spark.sql.catalog.{catalog_name}.uri", "thrift://localhost:9083") \
         .config(f"spark.sql.catalog.{catalog_name}.warehouse", warehouse_path)
         
     spark = builder.getOrCreate()

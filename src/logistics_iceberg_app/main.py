@@ -33,7 +33,10 @@ def main():
         
         # 3. Ingest to Iceberg
         logger.info("Ingesting data into Iceberg...")
-        table_name = f"{config.CATALOG_NAME}.delivery_logs"
+        # We let ingest.py handle the full name construction or pass the base
+        # But ingest.py now overrides it to use 'db'. Let's align them.
+        # Ideally, we pass "logistics.db.delivery_logs"
+        table_name = f"{config.CATALOG_NAME}.db.delivery_logs"
         ingest.ingest_to_iceberg_table(spark, df_pandas, table_name)
         
         # 4. Run Queries
